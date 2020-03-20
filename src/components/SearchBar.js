@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './Components.css'
 
 class SearchBar extends React.Component {
 
@@ -11,7 +11,7 @@ class SearchBar extends React.Component {
   render() {
 
     return (
-      <div>
+      <div class="enter-zip">
         <form onSubmit={this.handleSubmit}>
           <h2>Enter Zipcode</h2>
           <input type="input" name="zipcode"  />
@@ -24,7 +24,7 @@ class SearchBar extends React.Component {
         <ul>
           {this.props.venues.filter(venue => {
             return venue.zipcode === this.props.enteredzipcode
-          }).map(item => <li>{item.name}</li>)}
+          }).map(item => <li>{item.venue_name}</li>)}
         </ul>
       </div>
 

@@ -1,33 +1,13 @@
 import React, { Component } from 'react';
 import SearchBar from './components/SearchBar';
-
+import AddVenues from './components/AddVenues';
 
 
 class App extends Component {
 
   state = {
     venues: [
-      {
-      id: 1,
-      name: 'House of Blues',
-      zipcode: '75202'
-    },
-    {
-      id: 2,
-      name: 'The Bomb Factory',
-      zipcode: '75226'
-    },
-    {
-      id: 3,
-      name: 'South Side Ballroom',
-      zipcode: '75215'
-    },
-    {
-      id: 4,
-      name: 'Dos Equis Pavilion',
-      zipcode: '75210'
-    }
-
+     
     ],
 
     enteredzipcode: ''
@@ -40,7 +20,21 @@ class App extends Component {
     this.setState({ enteredzipcode: zipcode });
   }
 
-  
+  componentDidMount(){
+    this.getVenues();
+  }
+
+  getVenues = () => {
+    fetch('http://localhost:8000/api/venues')
+    .then(res => res.json())
+    .then(venues => this.setState({venues}))
+  }
+
+  addVenue =(venue) => {
+    this.setState({venues: [...this.state.venues,venue]})
+  }
+
+
 
   render() {
     return (
@@ -51,7 +45,9 @@ class App extends Component {
           venues={this.state.venues}
           onSuccess={this.setZipcode}
         />
-       
+       <AddVenues 
+       addVenue = {this.addVenue}
+       />
       
         <p className="App-intro">{this.state.apiResponse}</p>
         
